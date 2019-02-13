@@ -1,6 +1,9 @@
-.Day {
-  rect {
+.DAY {
+  .background {
     fill: none;
     stroke: springgreen;
+  }
+  text {
+    fill: aquamarine;
   }
 }

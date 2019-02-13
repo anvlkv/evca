@@ -1,3 +1,4 @@
+// @ts-ignore
 import { withInfo } from '@storybook/addon-info';
 const wInfoStyle = {
 	header: {
@@ -21,5 +22,4 @@ const wInfoStyle = {
 		lineHeight: '2'
 	}
 };
-export const wInfo = text =>
-	withInfo({ inline: true, source: false, styles: wInfoStyle, text: text });
+export const wInfo = (text: any) => withInfo({ inline: true, source: false, styles: wInfoStyle, text: text });

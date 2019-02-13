@@ -2,27 +2,23 @@ import React, { Component } from 'react';
 import './day.scss';
 import moment from 'moment';
 import { Layout } from '../../containers/layout/Layout';
+import { LayoutAlignmentHorizontal, LayoutAlignmentVertical, LayoutFlow } from '../../containers/layout/Layout.enum';
+import { TimeSpanComponentBase } from '../../containers/time-span/time-span';
+import { CalendarZoomLevels } from '../../containers/calendar/calendar-zoom-states.enum';
 
 
-export interface CalendarProps {
-	date: Date;
-}
-
-export class Day extends Component<CalendarProps> {
-
-	constructor(props: CalendarProps) {
-		super(props);
-	}
+export class Day extends TimeSpanComponentBase {
+	ownZoomLevelCorrespondence = CalendarZoomLevels.DAY;
 
 	render() {
-		const day = moment(this.props.date).format('DD');
+		const day = this.props.startDate.format('DD');
 		return (
-			<Layout className={'Day'}
-			        vertical={'center'}
-			        horizontal={'center'}
-			        flow={'overlay'}>
-				<rect x={0} y={0} width={10} height={10} fill={'none'}/>
-				<text x={0} y={0} dominantBaseline="hanging">
+			<Layout className={'DAY'}
+			        verticalAlignment={LayoutAlignmentVertical.CENTER}
+			        horizontalAlignment={LayoutAlignmentHorizontal.CENTER}
+			        flow={LayoutFlow.OVERLAP}>
+				<rect width={100} height={100} className={'background'}/>
+				<text className={'primary-text'}>
 					{day}
 				</text>
 			</Layout>

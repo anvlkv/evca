@@ -23,7 +23,8 @@
     "types": [
       "node",
       "jest"
-    ]
+    ],
+    "inlineSourceMap": true
   },
   "include": [
     "src"

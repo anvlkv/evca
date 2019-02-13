@@ -1,0 +1,13 @@
+.MONTH {
+  .month-title {
+    width: 100%;
+    height: 20%;
+    .background{
+      fill: lightblue;
+      width: 100%;
+    }
+    .title {
+      transform: translate(1em, 0);
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import '../src/index.scss';
 import { storiesOf } from '@storybook/react';
 import { wInfo } from './utils';
 
