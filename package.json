@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "7.1.6",
+    "@babel/core": "^7.2.2",
     "@babel/register": "^7.0.0",
     "@svgr/webpack": "2.4.1",
     "babel": "^6.23.0",
@@ -12,6 +12,7 @@
     "babel-jest": "23.6.0",
     "babel-loader": "8.0.4",
     "babel-plugin-named-asset-import": "^0.3.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-react-app": "^7.0.0",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
@@ -33,12 +34,6 @@
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
-    "jasmine": "^3.3.1",
-    "jasmine-enzyme": "^7.0.1",
-    "jest": "23.6.0",
-    "jest-pnp-resolver": "1.0.1",
-    "jest-resolve": "23.6.0",
-    "jsdom": "^13.2.0",
     "mini-css-extract-plugin": "0.4.3",
     "moment": "^2.24.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
@@ -78,14 +73,24 @@
     "@types/react-dom": "^16.0.11",
     "@types/storybook__react": "^4.0.0",
     "babel-loader": "8.0.4",
-    "node-sass": "^4.11.0"
+    "jasmine-core": "^3.3.0",
+    "karma": "^4.0.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-typescript": "^4.0.0",
+    "karma-webpack": "^3.0.5",
+    "node-sass": "^4.11.0",
+    "react-page-object": "^1.1.0",
+    "react-test-renderer": "^16.8.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "test": "npm run karma -- --single-run",
+    "karma": "BABEL_ENV=development NODE_ENV=test node_modules/karma/bin/karma start config/karma.conf.js"
   },
   "eslintConfig": {
     "extends": "react-app"
