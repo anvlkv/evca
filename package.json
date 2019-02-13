@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/register": "^7.0.0",
+    "babel": "^6.23.0",
+    "babel-preset-react-app": "^7.0.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jasmine": "^3.3.1",
+    "jasmine-enzyme": "^7.0.1",
+    "jsdom": "^13.2.0",
     "moment": "^2.24.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -20,16 +28,12 @@
     "@storybook/addon-links": "^4.1.11",
     "@storybook/addons": "^4.1.11",
     "@storybook/react": "^4.1.11",
-    "@types/jest": "^23.3.13",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "@types/storybook__react": "^4.0.0",
     "babel-loader": "8.0.4",
-    "jest-dom": "^3.0.1",
-    "node-sass": "^4.11.0",
-    "react-test-renderer": "^16.7.0",
-    "react-testing-library": "^5.4.4"
+    "node-sass": "^4.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
