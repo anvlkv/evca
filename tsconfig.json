@@ -22,11 +22,13 @@
     "rootDirs": ["src", "stories"],
     "types": [
       "node",
-      "jest"
+      "cypress",
+      "chai",
+      "mocha"
     ],
     "inlineSourceMap": true
   },
   "include": [
-    "src"
+    "**/*.ts"
   ]
 }
