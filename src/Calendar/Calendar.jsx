@@ -4,9 +4,9 @@ import './Calendar.scss';
 class Calendar extends Component {
   render() {
     return (
-      <div className="Calendar">
+      <g className={'Calendar'}>
 
-      </div>
+      </g>
     );
   }
 }
