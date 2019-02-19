@@ -237,4 +237,4 @@ storiesOf('Layout', module)
                 <rect width={7} height={5} fill={'green'}/>
             </Layout>
         </svg>
-    ))
+    ));
