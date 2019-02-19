@@ -53,7 +53,7 @@ describe('Layout', () => {
 
     it('transforms children', () => {
         const g = component().find('g.layout-item').filterWhere(el => {
-            return !!el.props().transform;
+            return !!el.props().transform.includes('matrix');
         });
         expect(g.length).toEqual(2);
     });
@@ -63,34 +63,187 @@ describe('Layout', () => {
             children = [
                 <rect key={0}
                       width={10}
-                      height={20}
+                      height={10}
                       fill={'blue'}
-                      data-b-box-mock="{x: 0, y: 0, width: 10, height: 20}"/>,
+                      data-b-box-mock="{x: 0, y: 0, width: 10, height: 10}"/>,
                 <rect key={1}
                       width={20}
                       height={20}
                       fill={'red'}
                       data-b-box-mock="{x: 0, y: 0, width: 20, height: 20}"/>,
                 <rect key={2}
-                      width={20}
-                      height={20}
+                      width={30}
+                      height={30}
                       fill={'green'}
-                      data-b-box-mock="{x: 0, y: 0, width: 20, height: 20}"/>
+                      data-b-box-mock="{x: 0, y: 0, width: 30, height: 30}"/>
             ];
             props = {
                 direction: 'x'
             };
         });
 
-        it('translates 2nd item, so that it is adjacent to 1st', () => {
+        it('translates every next item, so that it is adjacent to previous in given direction', () => {
             const g = component().find('g.layout-item');
             expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 0)');
             expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 10 0)');
             expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 30 0)');
         });
+
+        describe('with alignment "start"', () => {
+            beforeEach(() => {
+                props.alignment = 'start'
+            });
+
+            it('should flow items along "x" and align other items by the top edge', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 10 0)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 30 0)');
+            });
+        });
+
+        describe('with alignment "end"', () => {
+            beforeEach(() => {
+                props.alignment = 'end'
+            });
+
+            it('should flow items along "x" and align other items by the bottom edge', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 20)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 10 10)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 30 0)');
+            });
+        });
+
+        describe('with alignment "center"', () => {
+            beforeEach(() => {
+                props.alignment = 'center'
+            });
+
+            it('should flow items along "x" and align other items by the axis', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 10)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 10 5)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 30 0)');
+            });
+        });
     });
 
+    describe('with direction "y"', () => {
+        beforeEach(() => {
+            children = [
+                <rect key={0}
+                      width={10}
+                      height={10}
+                      fill={'blue'}
+                      data-b-box-mock="{x: 0, y: 0, width: 10, height: 10}"/>,
+                <rect key={1}
+                      width={20}
+                      height={20}
+                      fill={'red'}
+                      data-b-box-mock="{x: 0, y: 0, width: 20, height: 20}"/>,
+                <rect key={2}
+                      width={30}
+                      height={30}
+                      fill={'green'}
+                      data-b-box-mock="{x: 0, y: 0, width: 30, height: 30}"/>
+            ];
+            props = {
+                direction: 'y'
+            };
+        });
 
+        it('translates every next item, so that it is adjacent to previous in given direction', () => {
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+            expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 0 10)');
+            expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 30)');
+        });
+
+        describe('with alignment "start"', () => {
+            beforeEach(() => {
+                props.alignment = 'start'
+            });
+
+            it('should flow items along "y" and align other items by the left edge', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 0 10)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 30)');
+            });
+        });
+
+        describe('with alignment "end"', () => {
+            beforeEach(() => {
+                props.alignment = 'end'
+            });
+
+            it('should flow items along "y" and align other items by the bottom edge', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 20 0)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 10 10)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 30)');
+            });
+        });
+
+        describe('with alignment "center"', () => {
+            beforeEach(() => {
+                props.alignment = 'center'
+            });
+
+            it('should flow items along "y" and align other items by the axis', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 10 0)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 5 10)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 30)');
+            });
+        });
+    });
+
+    describe('with direction "z"', () => {
+        beforeEach(() => {
+            children = [
+                <rect key={0}
+                      width={10}
+                      height={10}
+                      fill={'blue'}
+                      data-b-box-mock="{x: 0, y: 0, width: 10, height: 10}"/>,
+                <rect key={1}
+                      width={20}
+                      height={20}
+                      fill={'red'}
+                      data-b-box-mock="{x: 0, y: 0, width: 20, height: 20}"/>,
+                <rect key={2}
+                      width={30}
+                      height={30}
+                      fill={'green'}
+                      data-b-box-mock="{x: 0, y: 0, width: 30, height: 30}"/>
+            ];
+            props = {
+                direction: 'z'
+            };
+        });
+
+        it('translates every next item, so that it is adjacent to previous in given direction', () => {
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+            expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+            expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+        });
+
+        describe('with alignment "center-center"', () => {
+            beforeEach(() => {
+                props.alignment = 'center-center'
+            });
+
+            it('should center all items', () => {
+                const g = component().find('g.layout-item');
+                expect(g.at(0).props().transform).toEqual('matrix(1 0 0 1 10 10)');
+                expect(g.at(1).props().transform).toEqual('matrix(1 0 0 1 5 5)');
+                expect(g.at(2).props().transform).toEqual('matrix(1 0 0 1 0 0)');
+            });
+        });
+    });
 
 });
 
