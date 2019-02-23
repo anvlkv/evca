@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import { storiesOf } from '@storybook/react';
 import Layout from "./Layout";
@@ -6,8 +6,8 @@ import Layout from "./Layout";
 storiesOf('Layout', module)
     .add('flow direction "x"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'x'}>
@@ -17,10 +17,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "x", alignment "start"', () => (
+    .add('flow direction "x", \n alignment "start"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'x'} alignment={'start'}>
@@ -30,10 +30,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "x", alignment "center"', () => (
+    .add('flow direction "x", \n alignment "center"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'x'} alignment={'center'}>
@@ -43,10 +43,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "x", alignment "end"', () => (
+    .add('flow direction "x", \n alignment "end"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'x'} alignment={'end'}>
@@ -56,10 +56,80 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
+    .add('flow direction "x", \n alignment "end", \n fitX "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'x'} alignment={'end'} fitX={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "x", \n alignment "end", \n fitX "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'x'} alignment={'end'} fitX={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "x", \n alignment "end", \n fitY "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'x'} alignment={'end'} fitY={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "x", \n alignment "end", \n fitY "100" fitX "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'x'} alignment={'end'} fitY={100} fitX={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
     .add('flow direction "y"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'y'}>
@@ -69,10 +139,21 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "y", alignment "start"', () => (
+    .add('when adding children', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <AddChildClone direction={'y'}>
+                <rect width={5} height={10} fill={'orange'}/>
+            </AddChildClone>
+        </svg>
+    ))
+    .add('flow direction "y", \n alignment "start"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'y'} alignment={'start'}>
@@ -82,10 +163,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "y", alignment "center"', () => (
+    .add('flow direction "y", \n alignment "center"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'y'} alignment={'center'}>
@@ -95,10 +176,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "y", alignment "end"', () => (
+    .add('flow direction "y", \n alignment "end"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'y'} alignment={'end'}>
@@ -108,10 +189,112 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
+    .add('flow direction "y", \n alignment "end", \n fitY "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'y'} alignment={'end'} fitY={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "y", \n alignment "end", \n fitY "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'y'} alignment={'end'} fitY={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "y", \n alignment "end", \n fitX "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'y'} alignment={'end'} fitX={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('when adding children, flow direction "y", \n alignment "end", \n fitX "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <AddChildClone direction={'y'} alignment={'end'} fitX={50} fitY={55}>
+                <g>
+                    <rect width={60} height={10} fill={'orange'}/>
+                    <rect width={20} height={2} fill={'green'}/>
+                </g>
+            </AddChildClone>
+        </svg>
+    ))
+    .add('when nesting children', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <AddChildClone direction={'y'} alignment={'end'} fitX={50} fitY={55}>
+                <g>
+                    <AddChildClone direction={'x'} alignment={'end'} fitX={50} fitY={55}>
+                        <g>
+                            <rect width={60} height={10} fill={'orange'}/>
+                            <rect width={20} height={2} fill={'green'}/>
+                        </g>
+                    </AddChildClone>
+                </g>
+            </AddChildClone>
+        </svg>
+    ))
+    .add('flow direction "y", \n alignment "end", \n fitY "100" fitX "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'y'} alignment={'end'} fitY={100} fitX={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
     .add('flow direction "z"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'}>
@@ -121,10 +304,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "top-left"', () => (
+    .add('flow direction "z", \n alignment "top-left"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'top-left'}>
@@ -134,10 +317,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "top-center"', () => (
+    .add('flow direction "z", \n alignment "top-center"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'top-center'}>
@@ -147,10 +330,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "top-right"', () => (
+    .add('flow direction "z", \n alignment "top-right"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'top-right'}>
@@ -160,10 +343,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "center-left"', () => (
+    .add('flow direction "z", \n alignment "center-left"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'center-left'}>
@@ -173,10 +356,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "center-center"', () => (
+    .add('flow direction "z", \n alignment "center-center"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'center-center'}>
@@ -186,10 +369,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "center-right"', () => (
+    .add('flow direction "z", \n alignment "center-right"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'center-right'}>
@@ -199,10 +382,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "bottom-left"', () => (
+    .add('flow direction "z", \n alignment "bottom-left"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'bottom-left'}>
@@ -212,10 +395,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "bottom-center"', () => (
+    .add('flow direction "z", \n alignment "bottom-center"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'bottom-center'}>
@@ -225,10 +408,10 @@ storiesOf('Layout', module)
             </Layout>
         </svg>
     ))
-    .add('flow direction "z", alignment "bottom-right"', () => (
+    .add('flow direction "z", \n alignment "bottom-right"', () => (
         <svg viewBox={`0 0 100 100`}
-             width={500}
-             height={500}
+             width={1000}
+             height={1000}
              xmlns="http://www.w3.org/2000/svg"
              preserveAspectRatio="xMidYMin meet">
             <Layout direction={'z'} alignment={'bottom-right'}>
@@ -237,4 +420,110 @@ storiesOf('Layout', module)
                 <rect width={7} height={5} fill={'green'}/>
             </Layout>
         </svg>
+    ))
+    .add('flow direction "z", \n alignment "center-center", \n fitX "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'z'} alignment={'center-center'} fitX={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "z", \n alignment "center-center", \n fitX "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'z'} alignment={'center-center'} fitX={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "z", \n alignment "center-center", \n fitY "100"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'z'} alignment={'center-center'} fitY={100}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
+    ))
+    .add('flow direction "z", \n alignment "center-center", \n fitY "100" fitX "55"', () => (
+        <svg viewBox={`0 0 100 100`}
+             width={1000}
+             height={1000}
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMin meet">
+            <Layout direction={'z'} alignment={'center-center'} fitY={100} fitX={55}>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+                <rect width={10} height={20} fill={'red'}/>
+                <rect width={5} height={10} fill={'blue'}/>
+                <rect width={7} height={5} fill={'green'}/>
+            </Layout>
+        </svg>
     ));
+
+
+class AddChildClone extends Component {
+    added = [];
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0
+        }
+    }
+
+    render() {
+        return (
+            <>
+                <Layout {...this.props}>
+                    {this.added.map(this.renderAdded)}
+                    <text dominantBaseline={'hanging'} onClick={this.onClick.bind(this)}>add {`at ${this.state.count + 1}`}</text>
+                </Layout>
+            </>
+        );
+    }
+
+    onClick() {
+        this.added.push({...this.props.children});
+        this.setState({count: this.added.length});
+    }
+
+    renderAdded(el, at) {
+        return (
+            <g key={at}>
+                {el}
+            </g>
+        )
+    }
+}

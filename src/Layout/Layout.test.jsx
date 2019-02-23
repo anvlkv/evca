@@ -247,7 +247,9 @@ describe('Layout', () => {
         });
 
         it('should fit items in row of given width', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(0.5555555555555556 0 0 0.5555555555555556 0 0)');
+            expect(g.at(4).props().transform).toEqual('matrix(0.5555555555555556 0 0 0.5555555555555556 38.88888888888889 0)');
         });
     });
 
@@ -260,7 +262,9 @@ describe('Layout', () => {
         });
 
         it('should spread items in row of given width', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(1.25 0 0 1.25 0 0)');
+            expect(g.at(2).props().transform).toEqual('matrix(1.25 0 0 1.25 37.5 0)');
         });
     });
 
@@ -273,7 +277,9 @@ describe('Layout', () => {
         });
 
         it('should spread items in column of given height', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(1.6666666666666665 0 0 1.6666666666666665 0 0)');
+            expect(g.at(2).props().transform).toEqual('matrix(1.6666666666666665 0 0 1.6666666666666665 0 49.99999999999999)');
         });
     });
 
@@ -291,7 +297,9 @@ describe('Layout', () => {
         });
 
         it('should fit items in column of given height', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(0.41666666666666663 0 0 0.41666666666666663 0 0)');
+            expect(g.at(2).props().transform).toEqual('matrix(0.41666666666666663 0 0 0.41666666666666663 0 12.499999999999998)');
         });
     });
 
@@ -310,7 +318,9 @@ describe('Layout', () => {
         });
 
         it('should fit / spread items in box of given size', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(0.41666666666666663 0 0 0.41666666666666663 0 0)');
+            expect(g.at(4).props().transform).toEqual('matrix(0.41666666666666663 0 0 0.41666666666666663 0 29.166666666666664)');
         });
     });
 
@@ -319,12 +329,15 @@ describe('Layout', () => {
             props = {
                 fitY: 75,
                 fitX: 75,
-                direction: 'x'
+                direction: 'x',
+                ignoreRatio: true
             };
         });
 
         it('should fit / spread items in box of given size', () => {
-
+            const g = component().find('g.layout-item');
+            expect(g.at(0).props().transform).toEqual('matrix(1.25 0 0 2.5 0 0)');
+            expect(g.at(2).props().transform).toEqual('matrix(1.25 0 0 2.5 37.5 0)');
         });
     });
 });

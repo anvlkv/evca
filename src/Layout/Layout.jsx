@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Layout extends Component {
+export class Layout extends Component {
     layoutInProgress = false;
     chRefs = [];
 
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             transformations: []
-        }
+        };
     }
 
     componentDidMount() {
@@ -31,17 +31,17 @@ class Layout extends Component {
         return (
             <g key={`layout-item-${i}`}
                className={'layout-item'}
-               ref={this.setChildRef(i).bind(this)}
+               ref={this.setChildRef(i, ch)}
                transform={this.getChildTransformations(i)}>
                 {ch}
             </g>
         )
     }
 
-    setChildRef(i) {
-        return (el) => {
-            if (el) {
-                this.chRefs[i] = el;
+    setChildRef(i, child) {
+        return (element) => {
+            if (element) {
+                this.chRefs[i] = {element, child};
             }
         };
     }
@@ -49,23 +49,17 @@ class Layout extends Component {
     layout() {
         if (this.layoutInProgress) {
             this.layoutInProgress = false;
+            // this.layoutContext.layout();
+            console.log(this.context, this.layoutContext);
         }
         else {
             this.layoutInProgress = true;
-            const bBoxes = this.chRefs.map(ref => ref.getBBox());
-            // const whiteSpace = bBoxes.reduce((acc, current, at, all) => {
-            //     acc[0] += current.width;
-            //     acc[1] += current.height;
-            //     return acc;
-            // }, [0, 0]).map((val, at) => {
-            //     if (at === 0) {
-            //
-            //     }
-            //     else {
-            //
-            //     }
-            // });
-            const [xDominant, yDominant] = bBoxes.reduce((acc, current, at, all) => {
+            const bBoxes = this.chRefs.map(ref => ref.element.getBBox());
+
+            const fitX = this.props.fitX || 0,
+                fitY = this.props.fitY || 0;
+
+            const [xDominant, yDominant, xWhiteSpace, yWhiteSpace] = bBoxes.reduce((acc, current, at, all) => {
                 if (!acc[0] || acc[0].bBox.width < current.width) {
                     acc[0] = { bBox:current, at };
                 }
@@ -73,13 +67,57 @@ class Layout extends Component {
                 if (!acc[1] || acc[1].bBox.height < current.height) {
                     acc[1] = { bBox:current, at };
                 }
+
+
+                switch (this.props.direction) {
+                    case 'x':
+                        acc[2] -= current.width - current.x;
+                        if (acc[3] > fitY - current.height) {
+                            acc[3] = fitY - current.height;
+                        }
+                        break;
+                    case 'y':
+                        acc[3] -= current.height - current.y;
+                        if (acc[2] > fitX - current.width) {
+                            acc[2] = fitX - current.width;
+                        }
+                        break;
+                    case 'z':
+                    default:
+                        if (acc[2] > fitX - current.width) {
+                            acc[2] = fitX - current.width;
+                        }
+                        if (acc[3] > fitY - current.height) {
+                            acc[3] = fitY - current.height;
+                        }
+                }
+
                 return acc;
-            }, [null, null]);
+            }, [null, null, fitX, fitY]);
 
 
             const translates = [];
             const scales = [];
             const transformations = [];
+            let [xScale, yScale] = [1, 1];
+
+            if (this.props.fitX) {
+                xScale = 1 + xWhiteSpace / (fitX - xWhiteSpace);
+                if (!this.props.ignoreRatio && !fitY) {
+                    yScale = xScale;
+                }
+            }
+
+            if (this.props.fitY) {
+                yScale = 1 + yWhiteSpace / (fitY - yWhiteSpace);
+                if (!this.props.ignoreRatio && !fitX) {
+                    xScale = yScale;
+                }
+            }
+
+            if (!this.props.ignoreRatio && yScale !== xScale && this.props.fitX && this.props.fitY) {
+                xScale = yScale = xScale < yScale ? xScale : yScale;
+            }
 
             bBoxes.forEach((bBox, at) => {
                 translates[at] = [0, 0];
@@ -161,11 +199,11 @@ class Layout extends Component {
                         break;
                 }
 
-                scales[at] = [1, 1];
+                scales[at] = [xScale, yScale];
 
                 transformations[at] = [
                     scales[at][0], 0, 0,
-                    scales[at][1], translates[at][0], translates[at][1]
+                    scales[at][1], translates[at][0] * scales[at][0], translates[at][1] * scales[at][1]
                 ];
             });
 
