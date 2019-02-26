@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
+const LayoutContext = React.createContext({layout: null});
+
 export class Layout extends Component {
     layoutInProgress = false;
     chRefs = [];
+    parentLayout;
 
     constructor(props, context) {
         super(props, context);
@@ -21,9 +24,18 @@ export class Layout extends Component {
 
     render() {
         return (
-            <g className={'Layout'}>
-                {React.Children.map(this.props.children, this.renderChild.bind(this))}
-            </g>
+            <LayoutContext.Consumer>
+                {((context) => {
+                    this.parentLayout = context && context.layout || (() => {});
+                    return (
+                        <g className={'Layout'}>
+                            <LayoutContext.Provider value={{layout: () => this.layout()}}>
+                                {React.Children.map(this.props.children, this.renderChild.bind(this))}
+                            </LayoutContext.Provider>
+                        </g>
+                    )
+                })}
+            </LayoutContext.Consumer>
         );
     }
 
@@ -49,10 +61,10 @@ export class Layout extends Component {
     layout() {
         if (this.layoutInProgress) {
             this.layoutInProgress = false;
-            // this.layoutContext.layout();
-            console.log(this.context, this.layoutContext);
+            this.parentLayout();
         }
         else {
+            let shoulUpdate = false;
             this.layoutInProgress = true;
             const bBoxes = this.chRefs.map(ref => ref.element.getBBox());
 
@@ -91,6 +103,8 @@ export class Layout extends Component {
                             acc[3] = fitY - current.height;
                         }
                 }
+
+
 
                 return acc;
             }, [null, null, fitX, fitY]);
@@ -205,9 +219,20 @@ export class Layout extends Component {
                     scales[at][0], 0, 0,
                     scales[at][1], translates[at][0] * scales[at][0], translates[at][1] * scales[at][1]
                 ];
+
+                if (!shoulUpdate &&
+                    !transformations[at].every((t, i) => !!this.state.transformations[at] && this.state.transformations[at][i] === t)) {
+                    shoulUpdate = true;
+                }
             });
 
-            this.setState({transformations})
+            if (shoulUpdate) {
+                this.setState({transformations})
+            }
+            else {
+                this.layoutInProgress = false;
+            }
+
         }
     }
 
