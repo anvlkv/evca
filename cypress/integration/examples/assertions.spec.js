@@ -3,7 +3,7 @@
 context('Assertions', () => {
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/assertions')
-  })
+  });
 
   describe('Implicit Assertions', () => {
     it('.should() - make an assertion about the current subject', () => {
@@ -23,7 +23,7 @@ context('Assertions', () => {
         // first need to invoke jQuery method text()
         // and then match using regular expression
         .invoke('text')
-        .should('match', /column content/i)
+        .should('match', /column content/i);
 
       // a better way to check element's text content against a regular expression
       // is to use "cy.contains"
@@ -36,7 +36,7 @@ context('Assertions', () => {
 
       // for more information about asserting element's text
       // see https://on.cypress.io/using-cypress-faq#How-do-I-get-an-element’s-text-contents
-    })
+    });
 
     it('.and() - chain multiple assertions together', () => {
       // https://on.cypress.io/and
@@ -45,19 +45,19 @@ context('Assertions', () => {
         .and('have.attr', 'href')
         .and('include', 'cypress.io')
     })
-  })
+  });
 
   describe('Explicit Assertions', () => {
     // https://on.cypress.io/assertions
     it('expect - make an assertion about a specified subject', () => {
       // We can use Chai's BDD style assertions
-      expect(true).to.be.true
-      const o = { foo: 'bar' }
-      expect(o).to.equal(o)
-      expect(o).to.deep.equal({ foo: 'bar' })
+      expect(true).to.be.true;
+      const o = { foo: 'bar' };
+      expect(o).to.equal(o);
+      expect(o).to.deep.equal({ foo: 'bar' });
       // matching text using regular expression
       expect('FooBar').to.match(/bar$/i)
-    })
+    });
 
     it('pass your own callback function to should()', () => {
       // Pass a function to should that can have any number
@@ -70,14 +70,14 @@ context('Assertions', () => {
           // https://on.cypress.io/$
           // return an array of texts from all of the p's
           // @ts-ignore TS6133 unused variable
-          const texts = $p.map((i, el) => Cypress.$(el).text())
+          const texts = $p.map((i, el) => Cypress.$(el).text());
 
           // jquery map returns jquery object
           // and .get() convert this to simple array
-          const paragraphs = texts.get()
+          const paragraphs = texts.get();
 
           // array should have length of 3
-          expect(paragraphs).to.have.length(3)
+          expect(paragraphs).to.have.length(3);
 
           // set this specific subject
           expect(paragraphs).to.deep.eq([
@@ -86,16 +86,16 @@ context('Assertions', () => {
             'And even more text from third p',
           ])
         })
-    })
+    });
 
     it('finds element by class name regex', () => {
       cy.get('.docs-header')
         .find('div')
         // .should(cb) callback function will be retried
         .should(($div) => {
-          expect($div).to.have.length(1)
+          expect($div).to.have.length(1);
 
-          const className = $div[0].className
+          const className = $div[0].className;
 
           expect(className).to.match(/heading-/)
         })
@@ -104,7 +104,7 @@ context('Assertions', () => {
         .then(($div) => {
           expect($div).to.have.text('Introduction')
         })
-    })
+    });
 
     it('can throw any error', () => {
       cy.get('.docs-header')
@@ -115,20 +115,20 @@ context('Assertions', () => {
             throw new Error('Did not find 1 element')
           }
 
-          const className = $div[0].className
+          const className = $div[0].className;
 
           if (!className.match(/heading-/)) {
             throw new Error(`Could not find class "heading-" in ${className}`)
           }
         })
-    })
+    });
 
     it('assert - assert shape of an object', () => {
       const person = {
         name: 'Joe',
         age: 20,
-      }
+      };
       assert.isObject(person, 'value is object')
     })
   })
-})
+});
