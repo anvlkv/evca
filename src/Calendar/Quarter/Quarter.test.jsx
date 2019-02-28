@@ -1,16 +1,21 @@
 import React from 'react';
-import { Calendar } from './Calendar';
+import { ZoomLevelContext } from '../Calendar';
+import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
+import { Quarter } from './Quarter';
 import { mount } from 'enzyme'
 
-describe('Calendar', () => {
+describe('Quarter', () => {
     let props;
     let mountedComponent;
+    let zoom = CalendarZoomLevels.QUARTERS.ordinal;
     const component = () => {
         if (!mountedComponent) {
             mountedComponent = mount(
-                <svg>
-                  <Calendar {...props} />
-                </svg>
+                <ZoomLevelContext.Provider value={{zoom}}>
+                    <svg>
+                      <Quarter {...props} />
+                    </svg>
+                </ZoomLevelContext.Provider>
             );
         }
         return mountedComponent;

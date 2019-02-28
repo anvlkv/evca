@@ -1,16 +1,21 @@
 import React from 'react';
-import { Calendar } from './Calendar';
+import { ZoomLevelContext } from '../Calendar';
+import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
+import { Week } from './Week';
 import { mount } from 'enzyme'
 
-describe('Calendar', () => {
+describe('Week', () => {
     let props;
     let mountedComponent;
+    let zoom = CalendarZoomLevels.WEEKS.ordinal;
     const component = () => {
         if (!mountedComponent) {
             mountedComponent = mount(
-                <svg>
-                  <Calendar {...props} />
-                </svg>
+                <ZoomLevelContext.Provider value={{zoom}}>
+                    <svg>
+                      <Week {...props} />
+                    </svg>
+                </ZoomLevelContext.Provider>
             );
         }
         return mountedComponent;

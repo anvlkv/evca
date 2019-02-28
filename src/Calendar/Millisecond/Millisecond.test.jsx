@@ -1,16 +1,21 @@
 import React from 'react';
-import { Calendar } from './Calendar';
+import { ZoomLevelContext } from '../Calendar';
+import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
+import { Millisecond } from './Millisecond';
 import { mount } from 'enzyme'
 
-describe('Calendar', () => {
+describe('Millisecond', () => {
     let props;
     let mountedComponent;
+    let zoom = CalendarZoomLevels.MILLISECONDS.ordinal;
     const component = () => {
         if (!mountedComponent) {
             mountedComponent = mount(
-                <svg>
-                  <Calendar {...props} />
-                </svg>
+                <ZoomLevelContext.Provider value={{zoom}}>
+                    <svg>
+                      <Millisecond {...props} />
+                    </svg>
+                </ZoomLevelContext.Provider>
             );
         }
         return mountedComponent;
