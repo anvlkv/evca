@@ -11,6 +11,11 @@ export class Day extends Component {
             case CalendarZoomLevels.DAY.ordinal:
                 return (
                     <Layout key={'day'} fitX={100} fitY={100} direction={'y'}>
+                        <g className={'day-header'}>
+                            <rect className={'background'} width={100} height={20}/>
+                            <text className={'primary-date'}>{this.props.startDate.format('dddd, MMMM Do')}</text>
+                            <text className={'secondary-date'}>{this.props.startDate.format('YYYY')}</text>
+                        </g>
                         {generateDatesRangeAtZoomLevel(zoom, 24, this.props.startDate).map((rangeDate, index) => {
                             return (
                                 <Hour key={`day-hours-${index + 1}`} startDate={rangeDate}/>

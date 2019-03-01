@@ -15,8 +15,22 @@ export class Hour extends Component {
                 );
             case CalendarZoomLevels.DAY.ordinal:
                 return (
-                    <Layout key={'day-hour'} fitX={100} fitY={100} direction={'y'}>
-
+                    <Layout key={'day-hour'} fitX={100} fitY={100} direction={'z'}>
+                        <Layout className={'hour-content'} direction={'y'}>
+                            <rect className={'hour-background'} width={100} height={50}/>
+                            <rect className={'hour-background'} width={100} height={50}/>
+                        </Layout>
+                        <g className={'hour-header'}>
+                            <text className={'primary-date'}>
+                                {this.props.startDate.format('HH')}
+                            </text>
+                            <text className={'secondary-date'}>
+                                {this.props.startDate.format('mm')}
+                            </text>
+                            <text className={'secondary-date'}>
+                                {this.props.startDate.clone().add(30, 'minutes').format('mm')}
+                            </text>
+                        </g>
                     </Layout>
                 );
             case CalendarZoomLevels.DAYS.ordinal:

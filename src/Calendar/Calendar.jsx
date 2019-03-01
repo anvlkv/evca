@@ -17,6 +17,7 @@ import { Year } from './Year/Year';
 
 export const ZoomLevelContext = React.createContext({zoom: null});
 
+
 export class Calendar extends Component {
 
     static getDerivedStateFromProps(props, state) {
@@ -38,7 +39,7 @@ export class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: this.props.startDate || new Date(),
+            startDate: this.props.startDate || moment(),
             zoom: this.props.zoom || CalendarZoomLevels.DAY.ordinal
         };
     }
@@ -175,65 +176,54 @@ export class Calendar extends Component {
 }
 
 
-export function generateDatesRangeAtZoomLevel(zoom, rangeLimit, startDate) {
-    const startMoment = moment(startDate);
-    const zoomDecimalPart = zoom % 1;
-    const range = [startMoment];
-
-    const incrementer = (unit) => {
-        return (date) => {
-            return date.clone().add(1, unit);
-        }
-    };
-    
-    let increment;
-    let by = zoomDecimalPart;
-
+export function generateDatesRangeAtZoomLevel(zoom, rangeLimit, startMoment) {
+    let zoomDecimalPart = zoom % 1;
+    let incrementUnit;
     switch (Math.floor(zoom)) {
         case CalendarZoomLevels.MILLISECONDS.ordinal:
-            increment = incrementer('millisecond');
+            incrementUnit = 'milliseconds';
             break;
         case CalendarZoomLevels.SECONDS.ordinal:
-            increment = incrementer('second');
+            incrementUnit = 'seconds';
             break;
         case CalendarZoomLevels.MINUTES.ordinal:
-            increment = incrementer('minute');
+            incrementUnit = 'minutes';
             break;
         case CalendarZoomLevels.HOURS.ordinal:
-            increment = incrementer('hour');
+            incrementUnit = 'hours';
             break;
         case CalendarZoomLevels.DAY.ordinal:
         case CalendarZoomLevels.DAYS.ordinal:
-            increment = incrementer('day');
+            incrementUnit = 'days';
             break;
         case CalendarZoomLevels.WEEKS.ordinal:
-            increment = incrementer('week');
+            incrementUnit = 'weeks';
             break;
         case CalendarZoomLevels.QUARTERS.ordinal:
-            increment = incrementer('month');
-            by = 3 * zoomDecimalPart;
+            incrementUnit = 'quarters';
             break;
         case CalendarZoomLevels.MONTH.ordinal:
         case CalendarZoomLevels.MONTHS.ordinal:
-            increment = incrementer('month');
+            incrementUnit = 'months';
             break;
         case CalendarZoomLevels.YEAR.ordinal:
         case CalendarZoomLevels.YEARS.ordinal:
-            increment = incrementer('year');
+            incrementUnit = 'years';
             break;
         case CalendarZoomLevels.DECADES.ordinal:
-            increment = incrementer('year');
-            by = 10 * zoomDecimalPart;
+            incrementUnit = 'years';
+            rangeLimit = rangeLimit * 10;
             break;
         default:
             throw new Error(`unsupported zoom [${zoom}] increment`);
     }
-    
-    let i = 0;
-    while (i < 1) {
-        range.push(increment(range[range.length - 1]));
-        i += 1 - by;
+
+    const range = [];
+    const endMoment = startMoment.clone().add(rangeLimit - (zoomDecimalPart ? rangeLimit * zoomDecimalPart : 0), incrementUnit);
+    while (endMoment.isAfter(range[range.length - 1] || startMoment)) {
+        const previousMoment = range[range.length - 1] || startMoment;
+        range.push(previousMoment.clone().add(1, incrementUnit));
     }
 
-    return range.map(m => m.toDate());
+    return range;
 }

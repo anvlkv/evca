@@ -6,7 +6,7 @@ import { Layout } from '../../Layout/Layout';
 
 export class Week extends Component {
     renderAtZoomLevel(zoom) {
-        switch (zoom) {
+        switch (Math.floor(zoom)) {
             case CalendarZoomLevels.WEEKS.ordinal:
                 return (
                     <Layout key={'week'} fitX={100} fitY={100} direction={'y'}>
