@@ -1,49 +1,49 @@
 import React, { Component } from 'react';
 import './Week.scss';
-import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
-import { ZoomLevelContext } from '../Calendar';
+import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
+import { ScaleLevelContext } from '../Calendar';
 import { Layout } from '../../Layout/Layout';
 
 export class Week extends Component {
-    renderAtZoomLevel(zoom) {
-        switch (Math.floor(zoom)) {
-            case CalendarZoomLevels.WEEKS.ordinal:
+    renderAtScaleLevel(scale) {
+        switch (Math.floor(scale)) {
+            case CalendarScaleLevels.WEEKS.ordinal:
                 return (
                     <Layout key={'week'} fitX={100} fitY={100} direction={'y'}>
 
                     </Layout>
                 );
-            case CalendarZoomLevels.MONTH.ordinal:
+            case CalendarScaleLevels.MONTH.ordinal:
                 return (
                     <Layout key={'month-week'} fitX={100} fitY={100} direction={'y'}>
 
                     </Layout>
                 );
-            case CalendarZoomLevels.QUARTERS.ordinal:
+            case CalendarScaleLevels.QUARTERS.ordinal:
                 return (
                     <Layout key={'quarters-week'} fitX={100} fitY={100} direction={'y'}>
 
                     </Layout>
                 );
-            case CalendarZoomLevels.MONTHS.ordinal:
+            case CalendarScaleLevels.MONTHS.ordinal:
                 return (
                     <Layout key={'months-week'} fitX={100} fitY={100} direction={'y'}>
 
                     </Layout>
                 );
             default:
-                throw new Error(`unsupported zoom level [${zoom}] for [${this.constructor.name}]`);
+                throw new Error(`unsupported scale level [${scale}] for [${this.constructor.name}]`);
         }
     }
 
     render() {
         return (
             <g className={'Week'}>
-                <ZoomLevelContext.Consumer>
-                    {(({zoom}) => {
-                        return this.renderAtZoomLevel(zoom)
+                <ScaleLevelContext.Consumer>
+                    {(({scale}) => {
+                        return this.renderAtScaleLevel(scale)
                     })}
-                </ZoomLevelContext.Consumer>
+                </ScaleLevelContext.Consumer>
             </g>
         )
     }

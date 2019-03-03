@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './Quarter.scss';
-import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
-import { ZoomLevelContext } from '../Calendar';
+import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
+import { ScaleLevelContext } from '../Calendar';
 import { Layout } from '../../Layout/Layout';
 
 export class Quarter extends Component {
-    renderAtZoomLevel(zoom) {
+    renderAtScaleLevel(scale) {
         return (
             <Layout key={'quarter'} direction={'x'} fitX={100} fitY={100}>
 
@@ -16,11 +16,11 @@ export class Quarter extends Component {
     render() {
         return (
             <g className={'Week'}>
-                <ZoomLevelContext.Consumer>
-                    {(({zoom}) => {
-                        return this.renderAtZoomLevel(zoom)
+                <ScaleLevelContext.Consumer>
+                    {(({scale}) => {
+                        return this.renderAtScaleLevel(scale)
                     })}
-                </ZoomLevelContext.Consumer>
+                </ScaleLevelContext.Consumer>
             </g>
         )
     }

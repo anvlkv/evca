@@ -1,21 +1,21 @@
 import React from 'react';
-import { ZoomLevelContext } from '../Calendar';
-import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
+import { ScaleLevelContext } from '../Calendar';
+import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
 import { Year } from './Year';
 import { mount } from 'enzyme'
 
 describe('Year', () => {
     let props;
     let mountedComponent;
-    let zoom = CalendarZoomLevels.YEAR.ordinal;
+    let scale = CalendarScaleLevels.YEAR.ordinal;
     const component = () => {
         if (!mountedComponent) {
             mountedComponent = mount(
-                <ZoomLevelContext.Provider value={{zoom}}>
+                <ScaleLevelContext.Provider value={{scale}}>
                     <svg>
                       <Year {...props} />
                     </svg>
-                </ZoomLevelContext.Provider>
+                </ScaleLevelContext.Provider>
             );
         }
         return mountedComponent;

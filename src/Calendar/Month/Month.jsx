@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
 import './Month.scss';
-import { CalendarZoomLevels } from '../calendar-zoom-levels.enum';
-import { ZoomLevelContext } from '../Calendar';
+import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
+import { ScaleLevelContext } from '../Calendar';
 import { Layout } from '../../Layout/Layout';
 
 export class Month extends Component {
-    renderAtZoomLevel(zoom) {
-        switch (Math.floor(zoom)) {
-            case CalendarZoomLevels.MONTH.ordinal:
+    renderAtScaleLevel(scale) {
+        switch (Math.floor(scale)) {
+            case CalendarScaleLevels.MONTH.ordinal:
                 return (
                     <>
                     </>
                 );
-            case CalendarZoomLevels.QUARTERS.ordinal:
+            case CalendarScaleLevels.QUARTERS.ordinal:
                 break;
-            case CalendarZoomLevels.MONTHS.ordinal:
+            case CalendarScaleLevels.MONTHS.ordinal:
                 break;
-            case CalendarZoomLevels.YEAR.ordinal:
+            case CalendarScaleLevels.YEAR.ordinal:
                 break;
             default:
-                throw new Error(`unsupported zoom level [${zoom}] for [${this.constructor.name}]`);
+                throw new Error(`unsupported scale level [${scale}] for [${this.constructor.name}]`);
         }
     }
 
     render() {
         return (
             <g className={'Week'}>
-                <ZoomLevelContext.Consumer>
-                    {(({zoom}) => {
-                        return this.renderAtZoomLevel(zoom)
+                <ScaleLevelContext.Consumer>
+                    {(({scale}) => {
+                        return this.renderAtScaleLevel(scale)
                     })}
-                </ZoomLevelContext.Consumer>
+                </ScaleLevelContext.Consumer>
             </g>
         )
     }
