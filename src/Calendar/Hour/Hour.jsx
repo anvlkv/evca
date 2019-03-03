@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Hour.scss';
 import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
-import { generateDatesRangeAtScaleLevel, ScaleLevelContext } from '../Calendar';
+import { ScaleLevelContext } from '../Calendar';
 import { Layout } from '../../Layout/Layout';
 
 export class Hour extends Component {
@@ -15,7 +15,7 @@ export class Hour extends Component {
                 );
             case CalendarScaleLevels.DAY.ordinal:
                 return (
-                    <Layout key={'day-hour'} fitX={100} fitY={100} direction={'z'}>
+                    <Layout key={'day-hour'} fitY={100/24} direction={'z'}>
                         <Layout className={'hour-content'} direction={'y'}>
                             <rect className={'hour-background'} width={100} height={50}/>
                             <rect className={'hour-background'} width={100} height={50}/>

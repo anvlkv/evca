@@ -179,7 +179,7 @@ export class Calendar extends Component {
 export function generateDatesRangeAtScaleLevel(scale, rangeLimit, startMoment) {
     let scaleDecimalPart = scale % 1;
     let incrementUnit;
-    let multiplicator = 1;
+    let multiplicand = 1;
     switch (Math.floor(scale)) {
         case CalendarScaleLevels.MILLISECONDS.ordinal:
             incrementUnit = 'milliseconds';
@@ -191,7 +191,7 @@ export function generateDatesRangeAtScaleLevel(scale, rangeLimit, startMoment) {
             incrementUnit = 'minutes';
             break;
         case CalendarScaleLevels.DAY.ordinal:
-            multiplicator = 24;
+            multiplicand = 24;
         case CalendarScaleLevels.HOURS.ordinal:
             incrementUnit = 'hours';
             break;
@@ -209,7 +209,7 @@ export function generateDatesRangeAtScaleLevel(scale, rangeLimit, startMoment) {
             incrementUnit = 'months';
             break;
         case CalendarScaleLevels.DECADES.ordinal:
-            multiplicator = 10;
+            multiplicand = 10;
         case CalendarScaleLevels.YEAR.ordinal:
         case CalendarScaleLevels.YEARS.ordinal:
             incrementUnit = 'years';
@@ -218,15 +218,20 @@ export function generateDatesRangeAtScaleLevel(scale, rangeLimit, startMoment) {
             throw new Error(`unsupported scale [${scale}] increment`);
     }
 
-    const range = [];
+
     const endMoment = startMoment.clone().add(scaleDecimalPart ?
-        (rangeLimit * (multiplicator > 1 ? scaleDecimalPart + 1 : scaleDecimalPart)) * multiplicator :
-        1 * multiplicator,
+        (rangeLimit * (multiplicand > 1 ? scaleDecimalPart + 1 : scaleDecimalPart)) * multiplicand :
+        1 * multiplicand,
         incrementUnit);
+
+    return generateDatesRange(startMoment, endMoment, incrementUnit);
+}
+
+export function generateDatesRange(startMoment, endMoment, unit) {
+    const range = [];
     while (endMoment.isAfter(range[range.length - 1] || startMoment)) {
         const previousMoment = range[range.length - 1] || startMoment;
-        range.push(previousMoment.clone().add(1, incrementUnit));
+        range.push(previousMoment.clone().add(1, unit));
     }
-
     return range;
 }

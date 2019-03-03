@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './Day.scss';
 import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
-import { generateDatesRangeAtScaleLevel, ScaleLevelContext } from '../Calendar';
+import { generateDatesRange, ScaleLevelContext } from '../Calendar';
 import { Layout } from '../../Layout/Layout';
 import { Hour } from '../Hour/Hour';
 
 export class Day extends Component {
     renderAtScaleLevel(scale) {
+        const endDate = this.props.startDate.clone().add(24, 'hours');
         switch (Math.floor(scale)) {
             case CalendarScaleLevels.DAY.ordinal:
                 return (
@@ -16,7 +17,7 @@ export class Day extends Component {
                             <text className={'primary-date'}>{this.props.startDate.format('dddd, MMMM Do')}</text>
                             <text className={'secondary-date'}>{this.props.startDate.format('YYYY')}</text>
                         </g>
-                        {generateDatesRangeAtScaleLevel(scale, 24, this.props.startDate).map((rangeDate, index) => {
+                        {generateDatesRange(this.props.startDate, endDate, 'hours').map((rangeDate, index) => {
                             return (
                                 <Hour key={`day-hours-${index + 1}`} startDate={rangeDate}/>
                             );
@@ -26,7 +27,7 @@ export class Day extends Component {
             case CalendarScaleLevels.DAYS.ordinal:
                 return (
                     <Layout key={'days-day'} fitX={100} fitY={100} direction={'y'}>
-                        {generateDatesRangeAtScaleLevel(scale, 24, this.props.startDate).map((rangeDate, index) => {
+                        {generateDatesRange(this.props.startDate, endDate, 'hours').map((rangeDate, index) => {
                             return (
                                 <Hour key={`days-day-hours-${index + 1}`} startDate={rangeDate}/>
                             );
@@ -36,7 +37,7 @@ export class Day extends Component {
             case CalendarScaleLevels.WEEKS.ordinal:
                 return (
                     <Layout key={'weeks-day'} fitX={100} fitY={100} direction={'y'}>
-                        {generateDatesRangeAtScaleLevel(scale, 24, this.props.startDate).map((rangeDate, index) => {
+                        {generateDatesRange(this.props.startDate, endDate, 'hours').map((rangeDate, index) => {
                             return (
                                 <Hour key={`weeks-day-hours-${index + 1}`} startDate={rangeDate}/>
                             );

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { ScaleLevelContext } from '../Calendar';
 import { CalendarScaleLevels } from '../calendar-scale-levels.enum';
@@ -22,7 +23,7 @@ describe('Day', () => {
     };
 
     beforeEach(() => {
-        props = {};
+        props = {startDate: moment('2019-03-01T00:00:00.000Z')};
         mountedComponent = undefined;
     });
 
